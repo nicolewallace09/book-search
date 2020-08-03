@@ -6,10 +6,9 @@ const resolvers = {
     Query: {
         // get a single user by either their id or their username
         me: async (parent, args, context) => {
-            if(context.user) {
+            if (context.user) {
                 const userData = await User.findOne({ _id: context.user._id })
                 .select('__v -password')
-                .populate('books')
 
                 return userData; 
             }
@@ -28,7 +27,7 @@ const resolvers = {
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
-            if(!user) {
+            if (!user) {
                 throw new AuthenticationError('Incorrect credentials')
             }
 

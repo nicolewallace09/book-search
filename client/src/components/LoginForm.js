@@ -11,7 +11,7 @@ import { LOGIN_USER } from '../utils/mutations';
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  const [validated] = useState(false);
+  // const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   // initialize mutation
@@ -27,12 +27,12 @@ const LoginForm = () => {
 
     try {
       const { data } = await loginUser({
-        variables: {...userFormData} 
+        variables: { ...userFormData } 
       });
       Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
-      // setShowAlert(true);
+      setShowAlert(true);
     }
 
     setUserFormData({
@@ -79,7 +79,6 @@ const LoginForm = () => {
           variant='success'>
           Submit
         </Button>
-        {/* {error && <div>Login failed</div>} */}
       </Form>
     </>
   );
