@@ -30,6 +30,7 @@ const SavedBooks = () => {
       await removeBook({
         variables: { bookId }
     });
+    
 
     if (error) {
       throw new Error('something went wrong!');
