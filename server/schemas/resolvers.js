@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Book } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
@@ -7,7 +7,7 @@ const resolvers = {
         // get a single user by either their id or their username
         me: async (parent, args, context) => {
             if(context.user) {
-                const userData = await User.findOne({})
+                const userData = await User.findOne({ _id: context.user._id })
                 .select('__v -password')
                 .populate('books')
 

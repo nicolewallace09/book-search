@@ -16,7 +16,7 @@ const SignupForm = () => {
   // set state for alert
   const [showAlert, setShowAlert] = useState(false);
 
-  const [addUser, { error }] = useMutation(ADD_USER); 
+  const [addUser] = useMutation(ADD_USER); 
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -34,7 +34,7 @@ const SignupForm = () => {
       Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
-      setShowAlert(true);
+      // setShowAlert(true);
     }
 
     setUserFormData({
@@ -97,7 +97,7 @@ const SignupForm = () => {
           variant='success'>
           Submit
         </Button>
-        {error && <div>Sign up failed</div>}
+        {/* {error && <div>Sign up failed</div>} */}
       </Form>
     </>
   );
