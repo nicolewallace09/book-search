@@ -10,7 +10,6 @@ export const LOGIN_USER = gql`
         }
       }
     }
-  }
 `;
 
 // mutation for user to sign up 
