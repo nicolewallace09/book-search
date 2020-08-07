@@ -11,10 +11,10 @@ import { ADD_USER } from '../utils/mutations';
 const SignupForm = () => {
   // set initial form state
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
-  // // set state for form validation
-  // const [validated] = useState(false);
-  // // set state for alert
-  // const [showAlert, setShowAlert] = useState(false);
+  // set state for form validation
+  const [validated] = useState(false);
+  // set state for alert
+  const [showAlert, setShowAlert] = useState(false);
 
   const [addUser, { error }] = useMutation(ADD_USER); 
 
@@ -30,15 +30,11 @@ const SignupForm = () => {
       const { data } = await addUser({
         variables: {...userFormData}
       });
-    
-      if (error) {
-        throw new Error ('Something went wrong!')
-      }
 
       Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
-      // setShowAlert(true);
+      setShowAlert(true);
     }
 
     setUserFormData({
@@ -50,13 +46,13 @@ const SignupForm = () => {
 
   return (
     <>
-      <Form onSubmit={handleFormSubmit}>
-        { error ? ( 
-        <Alert dismissible variant='danger'>
+      {/* This is needed for the validation functionality above */}
+      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+        {/* show alert if server response is bad */}
+        <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
           Something went wrong with your signup!
         </Alert>
-        ) : ''} 
-        
+
         <Form.Group>
           <Form.Label htmlFor='username'>Username</Form.Label>
           <Form.Control
@@ -101,6 +97,7 @@ const SignupForm = () => {
           variant='success'>
           Submit
         </Button>
+        {error && <div>Sign up failed</div>}
       </Form>
     </>
   );
