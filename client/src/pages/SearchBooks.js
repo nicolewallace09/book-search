@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
-
 import Auth from '../utils/auth';
 import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
@@ -72,8 +71,6 @@ const SearchBooks = () => {
       const { data } = await saveBook({
         variables: { input: bookInput }
       });
-      console.log(bookInput);
-      console.log(data);
 
       if (error) {
         throw new Error('something went wrong!');
