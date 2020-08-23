@@ -40,8 +40,6 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-
-    // use addFriend() from module21 as an example
     saveBook: async (parent, { input }, context) => {
       if (context.user) {
         const updatedUser = await User.findByIdAndUpdate(
